@@ -7,62 +7,62 @@ const parkSchema = new Schema({
     type: String,
     required: true
   },
-  id_ariane: {
+  arianeId: {
     type: String,
     required: true
   },
-  nom: {
+  name: {
     type: String,
     required: true
   },
   num: Number,
-  numvoie: {
+  streetNum: {
     type: String,
     required: true
   },
-  voie: {
+  street: {
     type: String,
     required: true
   },
-  codepost: {
+  zipCode: {
     type: Number,
     required: true
   },
-  commune: {
+  city: {
     type: String,
     required: true
   },
-  code_insee: {
+  inseeCode: {
     type: Number,
     required: true
   },
   reglement: Boolean,
-  surf_tot_m2: Number,
-  gestion: String,
-  ann_ouvert: Number,
-  clos: {
+  totalSurfaceM2: Number,
+  management: String,
+  openingYear: Number,
+  isEnclosed: {
     type: Boolean,
     required: true
   },
-  acces: {
+  access: {
     type: String,
     required: true
   },
   label: String,
-  type_equip: String,
-  eau: {
+  equipmentType: String,
+  water: {
     type: Boolean,
     required: true
   },
-  toilettes: {
+  toilets: {
     type: Boolean,
     required: true
   },
-  chien: {
+  dogsAllowed: {
     type: Boolean,
     required: true
   },
-  esp_can: {
+  dogPark: {
     type: Boolean,
     required: true
   },

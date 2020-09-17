@@ -4,10 +4,14 @@ const parksController = require('../controllers/parks')
 
 const router = express.Router();
 
-router.get('/parks', parksController.getParks);
+router.get('/', parksController.getParks);
 
-router.get('/parks/search', parksController.getQueriedParks);
+router.get('/:parkId', parksController.getPark);
 
-router.post('/parks', parksController.postPark);
+router.get('/search', parksController.getQueriedParks);
 
-module.exports = router
+router.post('/', parksController.postPark);
+
+router.delete('/:parkId', parksController.deletePark);
+
+module.exports = router;

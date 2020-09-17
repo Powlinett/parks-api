@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', parksRoutes);
+app.use('/api/parks', parksRoutes);
 
 (async () => {
   try {

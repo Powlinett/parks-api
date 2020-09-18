@@ -12,6 +12,8 @@ router.get('/search', parksController.getQueriedParks);
 
 router.post('/', parksController.postPark);
 
+router.patch('/:parkId', parksController.patchPark);
+
 router.delete('/:parkId', parksController.deletePark);
 
 module.exports = router;

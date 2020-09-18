@@ -36,7 +36,19 @@ exports.postPark = async (req, res, next) => {
   res.status(201).json({ message: 'Park created', park: park });
 };
 
-exports.deletePark = async (req, res, nest) => {
+exports.patchPark = async (req, res, next) => {
+  const parkId = req.params.parkId;
+  const updatedPark = req.body;
+  const park = await Park.findOneAndUpdate(
+    {_id: new ObjectId(parkId)},
+    updatedPark,
+    {new: true}
+  );
+
+  res.status(200).json({ message: 'Park updated', park: park});
+};
+
+exports.deletePark = async (req, res, next) => {
   const parkId = req.params.parkId;
   const park = await Park.deleteOne({_id: new ObjectId(parkId)});
 

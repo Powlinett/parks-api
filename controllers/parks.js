@@ -36,7 +36,7 @@ exports.postPark = async (req, res, next) => {
   res.status(201).json({ message: 'Park created', park: park });
 };
 
-exports.patchPark = async (req, res, next) => {
+exports.putPark = async (req, res, next) => {
   const parkId = req.params.parkId;
   const updatedPark = req.body;
   const park = await Park.findOneAndUpdate(

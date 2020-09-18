@@ -12,7 +12,7 @@ router.get('/search', parksController.getQueriedParks);
 
 router.post('/', parksController.postPark);
 
-router.patch('/:parkId', parksController.patchPark);
+router.put('/:parkId', parksController.putPark);
 
 router.delete('/:parkId', parksController.deletePark);
 

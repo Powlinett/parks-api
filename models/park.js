@@ -48,7 +48,7 @@ const parkSchema = new Schema({
     type: String,
     required: true
   },
-  label: String,
+  label: Boolean,
   equipmentType: String,
   water: {
     type: Boolean,

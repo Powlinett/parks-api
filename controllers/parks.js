@@ -30,8 +30,8 @@ exports.getQueriedParks = async (req, res, next) => {
 };
 
 exports.postPark = async (req, res, next) => {
-  const parkJSON = req.body.park;
-  const park = "";
+  const parkJSON = req.body;
+  const park = await Park.create(parkJSON);
   
   res.status(201).json({ message: 'Park created', park: park });
 };

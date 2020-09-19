@@ -1,4 +1,5 @@
 const ObjectId = require('mongoose').Types.ObjectId;
+const { validationResult } = require('express-validator');
 
 const Park = require('../models/park');
 
@@ -30,27 +31,42 @@ exports.getQueriedParks = async (req, res, next) => {
 };
 
 exports.postPark = async (req, res, next) => {
-  const parkJSON = req.body;
-  const park = await Park.create(parkJSON);
-  
-  res.status(201).json({ message: 'Park created', park: park });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array()});
+  };
+  try {
+    const parkJSON = req.body;
+    const park = await Park.create(parkJSON);
+
+    res.status(201).json({ message: 'Park created', park: park });
+  } catch (err) {
+    console.log(err);
+  };
 };
 
 exports.putPark = async (req, res, next) => {
   const parkId = req.params.parkId;
   const updatedPark = req.body;
-  const park = await Park.findOneAndUpdate(
-    {_id: new ObjectId(parkId)},
-    updatedPark,
-    {new: true}
-  );
-
-  res.status(200).json({ message: 'Park updated', park: park});
+  try {
+    const park = await Park.findOneAndUpdate(
+      {_id: new ObjectId(parkId)},
+      updatedPark,
+      {new: true}
+    );  
+    res.status(200).json({ message: 'Park updated', park: park});
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.deletePark = async (req, res, next) => {
   const parkId = req.params.parkId;
-  const park = await Park.deleteOne({_id: new ObjectId(parkId)});
-
-  res.status(200).json({ message: 'Park deleted', park: park });
+  try {
+    const park = await Park.deleteOne({_id: new ObjectId(parkId)});
+  
+    res.status(200).json({ message: 'Park deleted', park: park });
+  } catch (err) {
+    console.log(err);
+  }
 };

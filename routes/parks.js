@@ -1,6 +1,7 @@
 const express = require('express');
 
 const parksController = require('../controllers/parks')
+const isParkValid = require('../middlewares/is-park-valid');
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.get('/:parkId', parksController.getPark);
 
 router.get('/search', parksController.getQueriedParks);
 
-router.post('/', parksController.postPark);
+router.post('/', isParkValid, parksController.postPark);
 
 router.put('/:parkId', parksController.putPark);
 

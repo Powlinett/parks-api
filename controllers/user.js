@@ -5,11 +5,9 @@ exports.postSignUp = async (req, res, next) => {
     const user = new User(req.body);
     const token = await user.generateAuthToken();
     const apiKey = await user.generateAPIKey();
-    console.log(user);
     await user.save();
     res.status(201).send({ user, token, apiKey });
   } catch (error) {
-    console.log(error);
     res.status(400).send(error);
   }
 };

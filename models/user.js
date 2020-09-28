@@ -1,8 +1,8 @@
-
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { v4: uuidv4 } = require('uuid');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -31,7 +31,11 @@ const userSchema = mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    apiKey: {
+      type: String,
+      required: true
+    }
 });
 
 userSchema.pre('save', async function (next) {
@@ -42,12 +46,16 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = function() {
     const user = this;
     const token = jwt.sign({_id: user._id}, process.env.JWT_KEY);
     user.tokens = user.tokens.concat({token});
-    await user.save();
     return token;
+}
+
+userSchema.methods.generateAPIKey = function() {
+  const user = this;
+  return user.apiKey = uuidv4();
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {

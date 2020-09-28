@@ -3,11 +3,14 @@ const User = require('../models/user');
 exports.postSignUp = async (req, res, next) => {
   try {
     const user = new User(req.body);
-    await user.save();
     const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+    const apiKey = await user.generateAPIKey();
+    console.log(user);
+    await user.save();
+    res.status(201).send({ user, token, apiKey });
   } catch (error) {
-      res.status(400).send(error);
+    console.log(error);
+    res.status(400).send(error);
   }
 };
 
@@ -19,6 +22,7 @@ exports.postLogin = async (req, res, next) => {
         return res.status(401).send({error: 'Login failed! Check authentication credentials'});
     }
     const token = await user.generateAuthToken();
+    await user.save();
     res.send({ user, token });
   } catch (error) {
       res.status(400).send(error);
@@ -49,4 +53,4 @@ exports.postLogOutAll = async(req, res, next) => {
   } catch (error) {
     res.status(500).send(error);
   }
-}
+};

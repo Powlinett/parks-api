@@ -36,7 +36,7 @@ app.use('/users', userRoutes);
       useFindAndModify: false,
       useCreateIndex: true
     });
-    app.listen(8080);
+    app.listen(process.env.PORT || 8080);
   } catch (error) {
     console.log(error);
   };

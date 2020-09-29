@@ -8,9 +8,9 @@ const router = express.Router();
 
 router.get('/', parksController.getParks);
 
-router.get('/:parkId', parksController.getPark);
-
 router.get('/search', parksController.getQueriedParks);
+
+router.get('/:parkId', parksController.getPark);
 
 router.post('/', apiKeyMiddleware, isParkValid, parksController.postPark);
 
